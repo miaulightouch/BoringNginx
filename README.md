@@ -34,6 +34,7 @@ Usage: build-*.sh [Option]...
 If you execute `./build-*.sh` without parameter, it would be `./build-*.sh 1.10.1 --openssl`
 
 For example, if you want build 1.11.2 with LibreSSL, passenger module, enable full relro:
+
 `./build-centos.sh 1.11.2 libressl passenger hardening`
 
 You can specify newer nginx version, but it may not work.
