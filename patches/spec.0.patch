@@ -57,7 +57,7 @@
 -    --with-debug
 +    --with-debug \
 +    %{EXTRACONFIG}
-+touch $(SSLPACK)/.openssl/include/openssl/ssl.h || true
++touch %{SSLPACK}/.openssl/include/openssl/ssl.h || true
  make %{?_smp_mflags}
  %{__mv} %{bdir}/objs/nginx \
      %{bdir}/objs/nginx-debug
@@ -68,7 +68,7 @@
 -    %{?perlldopts}
 +    %{?perlldopts} \
 +    %{EXTRACONFIG}
-+touch $(SSLPACK)/.openssl/include/openssl/ssl.h || true
++touch %{SSLPACK}/.openssl/include/openssl/ssl.h || true
  make %{?_smp_mflags}
  
  %install
