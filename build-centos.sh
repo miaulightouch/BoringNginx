@@ -60,7 +60,7 @@ do
     esac
 done
 ngxversion $ngxver
-[ ! $BORINGSSL -o ! $LIBRESSL ] && OPENSSL="1" # Use OpenSSL if not set
+[ ! "$BORINGSSL" -o "$LIBRESSL" ] && OPENSSL="1" # Use OpenSSL if not set
 
 
 # Prompt our user before we start removing stuff
@@ -150,8 +150,8 @@ fi
 # Config nginx based on the flags passed to the script, if any
 if [ $PASSENGER ]
 then
-    [ $(gem list rails | grep rails) ] && sudo gem install rails -v 4.2.7
-    [ $(gem list passenger | grep passenger) ] && sudo gem install passenger
+    [ ! $(gem list rails | grep rails) ] && sudo gem install rails -v 4.2.7
+    [ ! $(gem list passenger | grep passenger) ] && sudo gem install passenger
 fi
 
 
