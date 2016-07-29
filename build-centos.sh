@@ -14,7 +14,11 @@ function ngxversion() {
         *) echo "Unknown version, try default settings.";;
     esac
     echo ""
-    [ "${ngxver#1.*.}" -gt 0 ] && spec=spec.1.patch || spec=spec.0.patch
+    case "${ngxver#1.*}" in
+        *.0) spec=spec.0.patch;;
+        *.1|11.2) spec=spec.1.patch;;
+        11.3) spec=spec.3.patch;;
+    esac
 }
 
 
