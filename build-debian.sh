@@ -25,7 +25,7 @@ ngxver="1.10.1" # Default nginx version
 supver="1.10.0|1.11.0|1.10.1|1.11.1|1.11.2" # Supported version
 
 opensslver=1.0.2h                                                # OpenSSL version
-libresslver=2.3.6                                                # LibreSSL version
+libresslver=2.4.2                                                # LibreSSL version
 chacha20=openssl__chacha20_poly1305_draft_and_rfc_ossl102g.patch # CF ChaCha20_Poly1305 patch
 spdy=nginx_1_9_15_http2_spdy.patch                               # updated CF SPDY patch
 rules=rules.0.patch                                              # DEB rules patch
