@@ -166,7 +166,7 @@ patch "${bdir}/SPECS/nginx.spec" "${rpath}/patches/$spec"
 sed -i "1 i\%define EXTRACONFIG ${EXTRACONFIG-;}" "${bdir}/SPECS/nginx.spec"
 sed -i "1 i\%define SSLPACK ${SSLPACK}" "${bdir}/SPECS/nginx.spec"
 sed -i "1 i\%define SPDY_PATCH $spdy" "${bdir}/SPECS/nginx.spec"
-
+sed -i "1 i\%define dist .el%{rhel}" "${bdir}/SPECS/nginx.spec"
 
 # Build Nginx RPM
 if [ $PASSENGER ]
