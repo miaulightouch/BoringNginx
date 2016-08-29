@@ -179,7 +179,7 @@ sudo chown -R $USER "$bdir"
 
 
 # Install
-sudo rpm -U --force "${bdir}/RPMS/${HOSTTYPE}/nginx-*.rpm"
+sudo rpm -iv --replacepkgs "${bdir}/RPMS/${HOSTTYPE}/nginx-*.rpm"
 sudo systemctl daemon-reload
 echo ""
 nginx -V
