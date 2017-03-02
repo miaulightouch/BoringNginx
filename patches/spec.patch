@@ -1,0 +1,67 @@
+--- /tmp/patchednginx/SPECS/nginx.spec.orig	2017-03-01 22:53:24.628975184 +0000
++++ /tmp/patchednginx/SPECS/nginx.spec	2017-03-01 23:01:35.357303975 +0000
+@@ -13,7 +13,6 @@
+ Requires: initscripts >= 8.36
+ Requires(post): chkconfig
+ Requires: openssl
+-BuildRequires: openssl-devel
+ %endif
+
+ %if 0%{?rhel} == 6
+@@ -22,7 +21,6 @@
+ Requires: initscripts >= 8.36
+ Requires(post): chkconfig
+ Requires: openssl >= 1.0.1
+-BuildRequires: openssl-devel >= 1.0.1
+ %endif
+
+ %if 0%{?rhel} == 7
+@@ -33,7 +31,6 @@
+ Requires: systemd
+ Requires: openssl >= 1.0.1
+ BuildRequires: systemd
+-BuildRequires: openssl-devel >= 1.0.1
+ %endif
+
+ %if 0%{?suse_version} == 1315
+@@ -78,6 +75,7 @@
+ Source11: nginx-debug.service
+ Source12: COPYRIGHT
+ Source13: nginx.check-reload.sh
++Patch0: %{SPDY_PATCH}
+
+ License: 2-clause BSD-like license
+
+@@ -102,18 +100,30 @@
+     -e 's|%%PROVIDES%%|nginx|g' < %{SOURCE2} > nginx.init
+ sed -e 's|%%DEFAULTSTART%%||g' -e 's|%%DEFAULTSTOP%%|0 1 2 3 4 5 6|g' \
+     -e 's|%%PROVIDES%%|nginx-debug|g' < %{SOURCE2} > nginx-debug.init
++%patch0 -p1
++mv %_sourcedir/%{SSLPACK} . || true
+
+ %build
+ ./configure %{BASE_CONFIGURE_ARGS} \
++    --with-openssl=%{SSLPACK} \
++    --with-http_spdy_module \
++    --with-openssl-opt=-fPIC \
+     --with-cc-opt="%{WITH_CC_OPT}" \
+     --with-ld-opt="%{WITH_LD_OPT}" \
+-    --with-debug
++    --with-debug \
++    %{EXTRACONFIG}
++touch %{SSLPACK}/.openssl/include/openssl/ssl.h || true
+ make %{?_smp_mflags}
+ %{__mv} %{bdir}/objs/nginx \
+     %{bdir}/objs/nginx-debug
+ ./configure %{BASE_CONFIGURE_ARGS} \
++    --with-openssl=%{SSLPACK} \
++    --with-http_spdy_module \
++    --with-openssl-opt=-fPIC \
+     --with-cc-opt="%{WITH_CC_OPT}" \
+-    --with-ld-opt="%{WITH_LD_OPT}"
++    --with-ld-opt="%{WITH_LD_OPT}" \
++    %{EXTRACONFIG}
++touch %{SSLPACK}/.openssl/include/openssl/ssl.h || true
+ make %{?_smp_mflags}
+
+ %install
